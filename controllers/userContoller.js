@@ -1,6 +1,6 @@
 const User = require('../models/userModel')
 const jwt =require('jsonwebtoken')//create token firstly insatll the npm installwebtoken library
-
+const mongoose = require('mongoose')
 //------------------create webtoken--------------------------
 
 const createToken = (_id) => {
@@ -43,6 +43,7 @@ const addUser = async (req, res) => {
 
 
 }
+// get all users
 const getUser = async (req, res) => {
   try {
     // Assuming req.user is populated with authenticated user information
@@ -57,4 +58,42 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { addUser, loginUser, getUser }
+//update users
+
+const updateUser = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such user'})
+  }
+
+  const update = await User.findOneAndUpdate({_id: id}, {
+    ...req.body
+  })
+
+  if (!update) {
+    return res.status(400).json({error: 'No such user'})
+  }
+
+  res.status(200).json(update)
+}
+
+//delete user
+const deleteUser = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such user'})
+  }
+
+  const dropUser = await User.findOneAndDelete({_id: id})
+
+  if(!dropUser) {
+    return res.status(400).json({error: 'No such user'})
+  }
+
+  res.status(200).json(dropUser)
+}
+
+
+module.exports = { addUser, loginUser, getUser,updateUser,deleteUser }
