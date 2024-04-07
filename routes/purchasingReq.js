@@ -1,21 +1,22 @@
 const express = require('express');
 const {
   createReq,
-  getAddUsers,
-  getAddUser,
-  deleteAddUser,
-  updateAddUser
+  getAllPr,
+  // getAddUsers,
+  // getAddUser,
+  // deleteAddUser,
+  // updateAddUser
 } = require('../controllers/PurchasingReqController');
 
-const requireAuth = require('../middleware/requireAuth'); // Uncomment this line to import requireAuth middleware
+//const requireAuth = require('../middleware/requireAuth'); // Uncomment this line to import requireAuth middleware
 
 const router = express.Router();
 
 // Require authentication for all user routes
-router.use(requireAuth)
+//router.use(requireAuth)
 
-// GET all users
-// router.get('/', getAddUsers)
+// GET all Pr
+ router.get('/', getAllPr)
 
 // GET a single user by ID
 // router.get('/:id', getAddUser)

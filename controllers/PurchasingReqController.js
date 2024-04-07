@@ -1,12 +1,18 @@
 const PurchasingReq = require('../models/PurchasingReqModel');
 const mongoose = require('mongoose');
 
-// Get all Addusers
-const getAddUsers = async (req, res) => {
-  const Adduser_id = req.user._id
-  const addusers = await AddUser.find({Adduser_id}).sort({createdAt: -1})
-  res.status(200).json(addusers)
+// Get all PR
+
+const getAllPr = async (req, res) => {
+  try {
+    const AllPr = await PurchasingReq.find().sort({ createdAt: -1 });
+    res.status(200).json(AllPr);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
+
 
 
 
@@ -27,7 +33,7 @@ const getAddUser = async (req, res) => {
   }
 };
 
-// Create a new Adduser
+// Create a newPR
 const createReq = async (req, res) => {
   const { serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,comment } = req.body;
   try {
@@ -74,7 +80,7 @@ const updateAddUser = async (req, res) => {
 };
 
 module.exports = {
-  getAddUsers,
+  getAllPr,
   getAddUser,
   createReq ,
   deleteAddUser,
