@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
     const token = createToken(_id)
     
 
-    res.status(200).json({email, token,role})
+    res.status(200).json({email, token, role})
   } catch (error) {
     res.status(400).json({error: error.message})
   }
@@ -28,7 +28,7 @@ const loginUser = async (req, res) => {
 // adduser a user
 const addUser = async (req, res) => {
   const {email, password,firstName,lastName,addressLine1,addressLine2,contact,role} = req.body
-
+   
   try {
     const user = await User.add(email, password,firstName,lastName,addressLine1,addressLine2,contact,role)
 
@@ -57,6 +57,37 @@ const getUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+
+//get single user
+const getSingeUser = async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such workout'})
+  }
+
+  const singleUser = await User.findById(id)
+
+  if (!singleUser) {
+    return res.status(404).json({error: 'No such workout'})
+  }
+
+  res.status(200).json(singleUser)
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 //update users
 
@@ -96,4 +127,4 @@ const deleteUser = async (req, res) => {
 }
 
 
-module.exports = { addUser, loginUser, getUser,updateUser,deleteUser }
+module.exports = { addUser, loginUser, getUser,updateUser,deleteUser,getSingeUser }
