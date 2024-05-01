@@ -13,6 +13,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+    
   },
   firstName: {
     type: String,
@@ -37,13 +38,17 @@ const userSchema = new Schema({
   role: {
     type: String,
     required: true
+  },
+  ward:{
+    type:String,
+   
   }
 });
 
 // Static signup method
-userSchema.statics.add = async function(email, password, firstName, lastName, addressLine1, addressLine2, contact, role) {
+userSchema.statics.add = async function(email, password, firstName, lastName, addressLine1, addressLine2, contact, role,ward) {
   // Validation
-  if (!email || !password || !firstName || !lastName || !addressLine1 || !contact || !role) {
+  if (!email || !password || !firstName || !lastName || !addressLine1 || !contact || !role  ) {
     throw new Error('All fields must be filled');
   }
 
@@ -51,9 +56,25 @@ userSchema.statics.add = async function(email, password, firstName, lastName, ad
     throw new Error('Email is not valid');
   }
 
-  if (!validator.isStrongPassword(password)) {
-    throw new Error('Password is not strong enough');
-  }
+
+
+  // valide the phone number
+
+  const isValidContact = (contact) => {
+    const contactRegex = /^\d{10}$/;
+    return contactRegex.test(contact);
+};
+
+if (!isValidContact(contact)) {
+    throw new Error('Contact number is not valid');
+}
+
+
+
+
+  // if (!validator.isStrongPassword(password)) {
+  //   throw new Error('Password is not strong enough');
+  // }
 
   // Check if email already exists
   const exists = await this.findOne({ email });
@@ -63,17 +84,21 @@ userSchema.statics.add = async function(email, password, firstName, lastName, ad
 
   // Password encryption
   const salt = await bcrypt.genSalt(10);
+  
   const hash = await bcrypt.hash(password, salt);
-
-  const user = await this.create({ email, password: hash, firstName, lastName, addressLine1, addressLine2, contact, role });
+  console.log (password)
+  
+  const user = await this.create({ email, password: hash, firstName, lastName, addressLine1, addressLine2, contact, role,ward  });
   return user;
 };
+
 // Static login method
 userSchema.statics.login = async function(email, password) {
   // Validation
   if (!email || !password) {
     throw new Error('All fields must be filled');
   }
+  console.log(password);
 
   // Check if user exists
   const user = await this.findOne({ email });

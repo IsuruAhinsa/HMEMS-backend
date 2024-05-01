@@ -27,10 +27,13 @@ const loginUser = async (req, res) => {
 
 // adduser a user
 const addUser = async (req, res) => {
-  const {email, password,firstName,lastName,addressLine1,addressLine2,contact,role} = req.body
-   
+  const {email,firstName,lastName,addressLine1,addressLine2,contact,role,ward} = req.body
+
+  let password = (Math.random() + 1).toString(36).substring(7);
+  //console.log("random", r);
+
   try {
-    const user = await User.add(email, password,firstName,lastName,addressLine1,addressLine2,contact,role)
+    const user = await User.add(email, password,firstName,lastName,addressLine1,addressLine2,contact,role,ward)
 
     // create a token
     const token = createToken(user._id)

@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const workoutRoutes = require("./routes/workouts");
 const userRoutes = require("./routes/user");
 const purchasingReqRoutes = require("./routes/purchasingReq")
+const WardPurchasingReqRoutes=require("./routes/wardPurchasingReq")
+const equipmentRoutes=require("./routes/equipment")
 //const requireAuth=require('./middleware/requireAuth')
 
 const corsOptions ={
@@ -31,6 +33,8 @@ app.use((req, res, next) => {
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/purchasingReq", purchasingReqRoutes)
+app.use ("/api/wardPurchasingReq",WardPurchasingReqRoutes)
+app.use("/api/equipment",equipmentRoutes)
 
 //app.use('app/requireAuth',requireAuth)
 
