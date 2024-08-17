@@ -2,9 +2,9 @@ const express = require('express');
 const {
   createReq,
   getAllPr,
-  // getAddUsers,
-  // getAddUser,
-  // deleteAddUser,
+  getOnePr,
+  
+  deletePR,
   // updateAddUser
 } = require('../controllers/PurchasingReqController');
 
@@ -16,16 +16,16 @@ const router = express.Router();
 //router.use(requireAuth)
 
 // GET all Pr
- router.get('/', getAllPr)
+ router.get('/', getAllPr);
 
 // GET a single user by ID
-// router.get('/:id', getAddUser)
+ router.get('/:id',getOnePr);
 
 // POST a new user
-router.post('/create', createReq)
+router.post('/create', createReq);
 
 // DELETE a user by ID
-// router.delete('/:id', deleteAddUser)
+router.delete('/:id', deletePR);
 
 // UPDATE a user by ID
 // router.patch('/:id', updateAddUser)

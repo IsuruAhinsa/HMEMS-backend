@@ -48,7 +48,7 @@ const userSchema = new Schema({
 // Static signup method
 userSchema.statics.add = async function(email, password, firstName, lastName, addressLine1, addressLine2, contact, role,ward) {
   // Validation
-  if (!email || !password || !firstName || !lastName || !addressLine1 || !contact || !role  ) {
+  if (!email || !password || !firstName || !lastName || !addressLine1  || !role  ) {
     throw new Error('All fields must be filled');
   }
 

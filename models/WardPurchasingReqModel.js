@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const wardPrReq = new Schema({
+
+  condition:{
+    type:String,
+    require:false
+
+  },
   serialNumber: {
     type: String,
-    required: true
+    required: false
   },
   reason: {
     type: String,
@@ -25,11 +31,11 @@ const wardPrReq = new Schema({
   },
   purchasingDate: {
     type: String,
-    required: true
+    required: false
   },
   warrantyPeriod: {
     type: String,
-    required: true
+    required: false
   },
   genericName: {
     type: String,
@@ -56,3 +62,9 @@ const wardPrReq = new Schema({
 );
 
 module.exports = mongoose.model('Ward_Pr_Req', wardPrReq);
+
+
+
+
+
+

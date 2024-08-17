@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 
 // Create a new Ward PR
 const wardCreateReq = async (req, res) => {
-  const {serialNumber,reason,ward,brand,model,purchasingDate, warrantyPeriod,genericName,numberOfUnit,prType,comment} = req.body;
+  const { condition,serialNumber,reason,ward,brand,model,purchasingDate, warrantyPeriod,genericName,numberOfUnit,prType,comment} = req.body;
   try {
-    const prReq = await wardPurchasingReq.create({serialNumber,reason,ward,brand,model,purchasingDate,warrantyPeriod,genericName,numberOfUnit,prType,comment
+    const prReq = await wardPurchasingReq.create({condition,serialNumber,reason,ward,brand,model,purchasingDate,warrantyPeriod,genericName,numberOfUnit,prType,comment
     });
     res.status(201).json(prReq);
   } catch (error) {
@@ -67,13 +67,13 @@ const getSingeWardPr = async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such Waed PR'})
   }
 
   const singleWard = await wardPurchasingReq.findById(id)
 
   if (!singleWard) {
-    return res.status(404).json({error: 'No such workout'})
+    return res.status(404).json({error: 'No such WardPR'})
   }
 
   res.status(200).json(singleWard)
