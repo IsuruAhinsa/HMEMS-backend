@@ -1,5 +1,6 @@
 const PurchasingReq = require('../models/PurchasingReqModel');
 const mongoose = require('mongoose');
+const WardPurchasingReqModel = require('../models/WardPurchasingReqModel');
 
 // Get all PR
 
@@ -13,53 +14,76 @@ const getAllPr = async (req, res) => {
   }
 };
 
-
-
-
-// Get a single user by ID
-const getAddUser = async (req, res) => {
+//get one pr
+const getOnePr = async (req, res) => {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'Invalid PR ID' });
+  }
+
   try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: 'Invalid Adduser ID' });
+    const pr = await PurchasingReq.findById(id);
+
+    if (!pr) {
+      return res.status(404).json({ error: 'PR not found' });
     }
-    const Adduser = await AddUser.findById(id);
-    if (!Adduser) {
-      return res.status(404).json({ error: 'AddUser not found' });
-    }
-    res.status(200).json(Adduser);
+
+    res.status(200).json(pr);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
+
+
+
+
+
+
+
+
+
+
 // Create a newPR
 const createReq = async (req, res) => {
-  const { serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,comment } = req.body;
+  const {condition, serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,numberOfUnit,
+    ward,roomNumber,wardLineMatrix,requestpriority,
+    comment } = req.body;
   try {
-    const prReq = await PurchasingReq.create({ serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,comment });
+    const prReq = await PurchasingReq.create({condition,roomNumber,wardLineMatrix,requestpriority, serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,numberOfUnit,
+      ward,comment });
     res.status(201).json(prReq);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// Delete a Adduser by ID
-const deleteAddUser = async (req, res) => {
+
+
+
+// Delete a PR by ID
+const deletePR = async (req, res) => {
   const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid PR ID' });
+  }
+
   try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: 'Invalid Adduser ID' });
+    const deletedPR = await PurchasingReq.findByIdAndDelete(id);
+
+    if (!deletedPR) {
+      return res.status(404).json({ error: 'No such PR' });
     }
-    const Adduser = await AddUser.findByIdAndDelete(id);
-    if (!Adduser) {
-      return res.status(404).json({ error: 'AddUser not found' });
-    }
-    res.status(200).json(Adduser);
+
+    res.status(200).json({ message: 'PR deleted successfully', deletedPR });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
+
 
 // Update a Adduser by ID
 const updateAddUser = async (req, res) => {
@@ -81,8 +105,8 @@ const updateAddUser = async (req, res) => {
 
 module.exports = {
   getAllPr,
-  getAddUser,
+  getOnePr,
   createReq ,
-  deleteAddUser,
+  deletePR,
   updateAddUser
 };

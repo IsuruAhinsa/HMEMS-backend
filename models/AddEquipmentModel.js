@@ -29,7 +29,7 @@ const AddEquipmentSchema = new Schema({
     required: true
   },
   purchasingDate: {
-    type: Date,
+    type:String,
     required: true
   },
   warrantyPeriod: {
