@@ -20,7 +20,11 @@ router.get('/', getAllRepairInsRequests,
 router.get('/:id', getSingleRepairRequest);
 
 // Update a Repair Request
+<<<<<<< HEAD
 router.patch('/:id', updateRepairRequest);
+=======
+router.put('/:id', updateRepairRequest);
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 
 // Delete a Repair Request
 router.delete('/:id', deleteRepairRequest);

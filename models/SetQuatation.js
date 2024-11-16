@@ -41,14 +41,18 @@ const QuotationSchema = new Schema({
     type: String,
     required: true
   },
+<<<<<<< HEAD
   email:{
     type: String,
     required: true
   },
+=======
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
   genericName: {
     type: String,
     required: true
   },
+<<<<<<< HEAD
   
   roomNumber: {
     type: String,
@@ -72,6 +76,9 @@ wardLineMatrix: {
     type:String,
     required:true
   }
+=======
+
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 
 
 

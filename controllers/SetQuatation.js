@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 require("dotenv").config();
 const nodemailer = require("nodemailer");
+=======
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 const Quotation = require("../models/SetQuatation");
 const mongoose = require("mongoose");
 const PurchasingReq = require("../models/PurchasingReqModel");
@@ -7,7 +10,10 @@ const PurchasingReq = require("../models/PurchasingReqModel");
 // Create a Quotation
 const setQuotation = async (req, res) => {
   const {
+<<<<<<< HEAD
     requestpriority,
+=======
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
     orderNumber,
     quotationPrice,
     warrantyPeriod,
@@ -18,6 +24,7 @@ const setQuotation = async (req, res) => {
     role,
     name,
     genericName,
+<<<<<<< HEAD
     ward,
     wardLineMatrix, 
     roomNumber,
@@ -41,6 +48,12 @@ console.log(email);
   try {
     const newQuotation = await Quotation.create({
       requestpriority,
+=======
+  } = req.body;
+
+  try {
+    const newQuotation = await Quotation.create({
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
       orderNumber,
       quotationPrice,
       warrantyPeriod,
@@ -51,11 +64,14 @@ console.log(email);
       firstName: name,
       role,
       genericName,
+<<<<<<< HEAD
       ward,
       wardLineMatrix, 
       roomNumber,
       status,
       email
+=======
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
     });
     res.status(201).json(newQuotation);
     //res.status(200).json(req.body);
@@ -87,11 +103,19 @@ const getAllQuotations = async (req, res) => {
 const getSingleQuotationByOrderNumber = async (req, res) => {
   try {
     const { orderNumber } = req.params;
+<<<<<<< HEAD
 
     // Fetch the purchasing request by order number
     const pr = await PurchasingReq.findOne({ orderNumber });
     if (!pr) {
       return res.status(404).json({ error: "No such purchasing request" });
+=======
+    
+    // Fetch the purchasing request by order number
+    const pr = await PurchasingReq.findOne({ orderNumber });
+    if (!pr) {
+      return res.status(404).json({ error: 'No such purchasing request' });
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
     }
     const adminPrBrand = pr.brand;
 
@@ -101,7 +125,11 @@ const getSingleQuotationByOrderNumber = async (req, res) => {
     });
 
     if (quotations.length === 0) {
+<<<<<<< HEAD
       return res.status(404).json({ error: "No such quotation" });
+=======
+      return res.status(404).json({ error: 'No such quotation' });
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
     }
 
     // Sort quotations to have adminPrBrand first
@@ -117,11 +145,21 @@ const getSingleQuotationByOrderNumber = async (req, res) => {
 
     res.status(200).json(quotations);
   } catch (error) {
+<<<<<<< HEAD
     console.error("Error fetching quotation:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+=======
+    console.error('Error fetching quotation:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+// Delete a quotation
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 const deleteQuotation = async (req, res) => {
   const { id } = req.params;
 
@@ -129,17 +167,28 @@ const deleteQuotation = async (req, res) => {
     return res.status(400).json({ error: "Invalid quotation ID" });
   }
 
+<<<<<<< HEAD
   // Retrieve the quotation from the database to get all required fields
   const deletedQuotation = await Quotation.findByIdAndDelete(id);
+=======
+  const deletedQuotation = await Quotation.findOneAndDelete({ _id: id });
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 
   if (!deletedQuotation) {
     return res.status(400).json({ error: "No such quotation" });
   }
+<<<<<<< HEAD
  
 };
 
 
 
+=======
+
+  res.status(200).json(deletedQuotation);
+};
+
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 // Update a quotation
 const updateQuotation = async (req, res) => {
   const { id } = req.params;
@@ -158,6 +207,7 @@ const updateQuotation = async (req, res) => {
       return res.status(404).json({ error: "Quotation not found" });
     }
 
+<<<<<<< HEAD
     const {  orderNumber, ward, roomNumber, wardLineMatrix, quotationPrice, arrivalTimePeriod, email,numberOfUnits,currentBrand } = updatedQuotation;
 
     const output = `
@@ -225,6 +275,12 @@ const updateQuotation = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
   
+=======
+    res.status(200).json(updatedQuotation);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 };
 
 // Get a single quotation

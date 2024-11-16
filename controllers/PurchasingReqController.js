@@ -48,10 +48,16 @@ const getOnePr = async (req, res) => {
 // Create a newPR
 const createReq = async (req, res) => {
   const {condition, serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,numberOfUnit,
+<<<<<<< HEAD
     ward,roomNumber,wardLineMatrix,requestpriority,
     comment } = req.body;
   try {
     const prReq = await PurchasingReq.create({condition,roomNumber,wardLineMatrix,requestpriority, serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,numberOfUnit,
+=======
+    ward,comment } = req.body;
+  try {
+    const prReq = await PurchasingReq.create({condition, serialNumber,vendor,brand,model,purchasingDate,warrantyPeriod,genericName,equipmentType,numberOfUnit,
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
       ward,comment });
     res.status(201).json(prReq);
   } catch (error) {

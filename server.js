@@ -1,3 +1,4 @@
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 const cors = require("cors");
 const express = require("express");
@@ -15,10 +16,17 @@ const equipmentRoutes = require("./routes/equipment");
 const quatationRoutes = require("./routes/quatation");
 const RepairReq=require("./routes/RepairReq");
 const insdate=require("./routes/repairintdate");
+<<<<<<< HEAD
 const doctor=require("./routes/doctorRoutes");
 const wardAdminForwardTechnicientRoutes = require("./routes/WardAdminForwardTechnicientRoute");
 
 
+=======
+
+
+
+
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 // Create express app
 const app = express();
 
@@ -52,6 +60,7 @@ app.use("/api/equipment", equipmentRoutes);
 app.use("/api/quotation", quatationRoutes);
 app.use("/api/repaireq",RepairReq);
 app.use("/api/insdate",insdate);
+<<<<<<< HEAD
 app.use("/api/doctorRoutes",doctor);
 app.use('/api/wardadminforwardtechnicient',wardAdminForwardTechnicientRoutes);
 
@@ -64,6 +73,73 @@ app.get('/', (req, res) => {
 // Handle POST request to send email
 app.post('/send', async (req, res) => {
    
+=======
+// Handle GET request to root
+app.get('/', (req, res) => {
+    res.send('Welcome to the contact form API');
+});
+
+
+
+
+
+
+
+
+// Handle POST request to send email
+app.post('/send', async (req, res) => {
+    const { name, email, message } = req.body;
+
+
+  
+    
+    const output = `
+        <p>${name} have a new Order Request</p>
+         <li> Our Hospital confirms your Quotation ! </li>
+        <h3>Contact Details</h3>
+        <ul>
+            <li>Hospital Contact number :027 4455688 </li>
+        
+            <li>Hospital Email:hemes@gmail.com </li>
+           
+            
+        </ul>
+        <h3>Message</h3>
+        <p>${message}</p>
+    `;
+
+    let transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT, 10) || 587,
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+
+    let mailOptions = {
+        from: `"HMEMS Contact" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: 'Contact Request from Node.js',
+        text: 'Hello world?',
+        html: output
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Message sent: %s', info.messageId);
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        res.json({ status: 'success',
+            message: 'Email has been sent successfully' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ msg: 'Error sending email', error: error.message });
+    }
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
 });
 
 // Connect to MongoDB and start server

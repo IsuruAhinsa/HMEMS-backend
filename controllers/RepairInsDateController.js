@@ -10,6 +10,7 @@ const addRepairInsRequest = async (req, res) => {
       brand,
       ValidationValue,
       genericName,
+<<<<<<< HEAD
       requestType,
       insdate,   
       status
@@ -23,6 +24,12 @@ const addRepairInsRequest = async (req, res) => {
         return res.status(400).json({ error: 'A repair request with this serial number already exists.' });
       }
 
+=======
+      insdate
+    } = req.body;
+
+    try {
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
       // Create a new repair request document
       const newRepairReq = await RepairReq.create({
         serialNumber,
@@ -30,10 +37,15 @@ const addRepairInsRequest = async (req, res) => {
         comment,
         brand,
         ValidationValue,
+<<<<<<< HEAD
         requestType,
         genericName,
         insdate,
         status
+=======
+        genericName,
+        insdate
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
       });
 
       res.status(201).json(newRepairReq);

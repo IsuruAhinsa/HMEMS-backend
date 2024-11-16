@@ -4,9 +4,15 @@ const mongoose = require("mongoose");
 
 // Create a new Ward PR
 const wardCreateReq = async (req, res) => {
+<<<<<<< HEAD
   const { condition,serialNumber,reason,ward,brand,model,purchasingDate, warrantyPeriod,genericName,numberOfUnit,prType,wardLineMatrix,roomNumber,comment} = req.body;
   try {
     const prReq = await wardPurchasingReq.create({condition,serialNumber,reason,ward,brand,model,purchasingDate,warrantyPeriod,genericName,numberOfUnit,prType,wardLineMatrix,roomNumber,comment
+=======
+  const { condition,serialNumber,reason,ward,brand,model,purchasingDate, warrantyPeriod,genericName,numberOfUnit,prType,comment} = req.body;
+  try {
+    const prReq = await wardPurchasingReq.create({condition,serialNumber,reason,ward,brand,model,purchasingDate,warrantyPeriod,genericName,numberOfUnit,prType,comment
+>>>>>>> 5a0c7532fa40fc617117263a4f80b69557d7b3e7
     });
     res.status(201).json(prReq);
   } catch (error) {
